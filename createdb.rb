@@ -1,7 +1,8 @@
-# Set up for the application and database. DO NOT CHANGE. ##############
-require "sequel"                                                       #
-DB = Sequel.connect "sqlite://#{Dir.pwd}/development.sqlite3"          #
-########################################################################  
+# Set up for the application and database. DO NOT CHANGE. #############################
+require "sequel"                                                                      #
+connection_string = ENV['DATABASE_URL'] || "sqlite://#{Dir.pwd}/development.sqlite3"  #
+DB = Sequel.connect(connection_string)                                                #
+#######################################################################################
 
 # Database schema - this should reflect your domain model
 DB.create_table! :events do
