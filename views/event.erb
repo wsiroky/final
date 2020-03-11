@@ -1,0 +1,36 @@
+<div class="row">
+    <div class="col-sm-9">
+
+        <h1><%= @event[:title] %></h1>
+        <h4> <b>Date:</b> <%= @event[:date] %> </h4>
+        <h4> <b>Location:</b> <%= @event[:location] %> </h4>
+        <h4><b>Specials:</b></h4>
+        <p><%= @event[:specials] %></p>
+
+        <h4><b> Confirmed Attendees: </b></h4>
+        <% for rsvp in @rsvps %>
+            <div class="media">
+                <div class="media-body">
+                    <h5 class="mt-0"><%= @users_table.where(id: rsvp[:user_id]).to_a[0][:name] %></h5>
+                </div>
+            </div>
+        <% end %>
+        <p class="mt-5">
+            <% if @current_user %>
+                <a href="/events/<%= @event[:id] %>/rsvps/new" class="btn btn-primary">RSVP now!</a>
+            <% else %>
+                <a href="/logins/new" class="btn btn-danger">Please sign in to RSVP</a>
+            <% end %>
+        </p>
+    </div>
+    <div class="col-sm-3">
+        <h4><b>Map:</b></h4>
+        <iframe
+            width="300"
+            height="200"
+            frameborder="0" style="border:0"
+            src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCtovsQvkIUWlNqtYwXY87gEd4ZSmJEhMw
+            &q=<%= @lat_long %>&zoom=15" allowfullscreen>
+      </iframe>
+    </div>
+</div>
